@@ -1,0 +1,87 @@
+<!-- Owner: Brandon Lyubarsky (Application / Dashboard) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IoT Security Gateway</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <main class="dashboard-content">
+      <section class="panel esp32-section">
+        <h2 class="panel-title">ESP32 Device</h2>
+        <p class="esp32-text-info">
+          IP: 10.0.0.50 &bull;
+          LED: <span id="device-led-indicator">OFF</span> &bull;
+          Temperature: <span id="device-temp">--</span>°C &bull;
+          Humidity: <span id="device-humidity">--</span>%
+        </p>
+      </section>
+
+      <div class="layout-split">
+        <section class="panel">
+          <h2 class="panel-title">Test Actions</h2>
+
+          <div class="action-group">
+            <div class="action-label">Legitimate Traffic</div>
+            <div class="button-grid">
+              <button class="btn" onclick="runScenario('telemetry')">Send Telemetry</button>
+              <button class="btn" onclick="runCommand('TOGGLE_LED')">Toggle LED</button>
+            </div>
+          </div>
+
+          <div class="action-group">
+            <div class="action-label">Simulated Attacks</div>
+            <div class="button-grid">
+              <button class="btn btn-danger" onclick="runScenario('telnet')">Telnet Probe (:23)</button>
+              <button class="btn btn-danger" onclick="runScenario('c2_outbound')">Rogue C2 Beacon (:4444)</button>
+              <button class="btn btn-danger" onclick="runScenario('port_scan')">Horizontal Port Scan</button>
+              <button class="btn btn-warning" onclick="runScenario('flood')">Connection Flood</button>
+            </div>
+          </div>
+
+          <div class="action-group">
+            <div class="action-label">Controls</div>
+            <button class="btn btn-secondary" onclick="clearEventLogs()">Clear Event Log</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Gateway Event Log</h2>
+            <div class="filter-bar">
+              <button class="filter-tab active" data-filter="ALL" onclick="setFilter('ALL')">All (<span id="stat-all">0</span>)</button>
+              <button class="filter-tab" data-filter="ALLOWED" onclick="setFilter('ALLOWED')">Allowed (<span id="stat-allowed">0</span>)</button>
+              <button class="filter-tab" data-filter="BLOCKED" onclick="setFilter('BLOCKED')">Blocked (<span id="stat-blocked">0</span>)</button>
+              <button class="filter-tab" data-filter="ALERT" onclick="setFilter('ALERT')">Alerts (<span id="stat-alerts">0</span>)</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 14%;">Time</th>
+                  <th style="width: 12%;">Action</th>
+                  <th style="width: 32%;">Source -> Destination</th>
+                  <th style="width: 14%;">Port</th>
+                  <th style="width: 28%;">Rule / Reason</th>
+                </tr>
+              </thead>
+              <tbody id="event-table-body">
+                <tr>
+                  <td colspan="5" class="table-empty">Connecting to Gateway event stream...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js?v=4"></script>
+</body>
+</html>

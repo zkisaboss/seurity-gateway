@@ -1,0 +1,150 @@
+/* Owner: Brandon Lyubarsky (Application / Dashboard) */
+:root {
+  --bg-app: #0f172a;
+  --bg-panel: #1e293b;
+  --bg-surface: #0b1120;
+  --bg-subtle: #182234;
+  --color-allowed: #10b981;
+  --color-blocked: #f59e0b;
+  --color-alert: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: var(--bg-app);
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  padding: 1.5rem;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.panel {
+  background-color: var(--bg-panel);
+  border-radius: 6px;
+  padding: 1.25rem;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.panel-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.esp32-text-info {
+  font-size: 0.85rem;
+  font-family: ui-monospace, monospace;
+}
+
+.layout-split {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .layout-split { grid-template-columns: 1fr; }
+}
+
+.action-group { margin-bottom: 1rem; }
+.action-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.4rem;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border-radius: 4px;
+  border: none;
+  background-color: var(--bg-surface);
+  color: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.8rem;
+}
+
+.btn:hover, .filter-tab:hover, .filter-tab.active {
+  background-color: var(--bg-subtle);
+}
+
+.filter-bar { display: flex; gap: 0.35rem; }
+.filter-tab {
+  background: var(--bg-surface);
+  border: none;
+  color: #ffffff;
+  font-size: 0.78rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.table-wrap {
+  overflow: auto;
+  max-height: 560px;
+  border-radius: 4px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.data-table th, .data-table td {
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: var(--bg-surface);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+}
+
+.data-table tr:hover { background-color: var(--bg-subtle); }
+.table-empty { text-align: center; padding: 2rem !important; }
+
+.badge-tag {
+  display: inline-block;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-family: ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.badge-tag.allowed { background: rgba(16, 185, 129, 0.12); color: var(--color-allowed); }
+.badge-tag.blocked { background: rgba(245, 158, 11, 0.12); color: var(--color-blocked); }
+.badge-tag.alert { background: rgba(239, 68, 68, 0.12); color: var(--color-alert); }
+
+.ip-pair { font-family: ui-monospace, monospace; }
+.port-code { font-family: ui-monospace, monospace; }
+.rule-title { font-weight: 500; }
+.rule-detail { font-size: 0.7rem; }
